@@ -6,42 +6,6 @@ Become the feared master of a biome after killing the forsaken. This mod adds a 
 Meadows (Eikthyr), Black Forest (The Elder), Swamp (Bonemass), Mountains (Moder), Plains (Yagluth),
 Mistlands (The Queen) and Ashlands (Fader). Every table looks unique and will show the trophies you collected.
 
-## Screenshots
-
-### Meadows
-![Meadows table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_ini.jpg)
-![Meadows table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_inventory.jpg)
-
-### Black Forest
-![Black Forest table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_ini.jpg)
-![Black Forest table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_final.jpg)
-![Black Forest table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_inventory.jpg)
-
-### Swamp
-![Swamp table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_ini.jpg)
-![Swamp table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_final.jpg)
-![Swamp table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_inventory.jpg)
-
-### Mountains
-![Mountains table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_ini.jpg)
-![Mountains table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_final.jpg)
-![Mountains table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_inventory.jpg)
-
-### Plains
-![Plains table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_ini.jpg)
-![Plains table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_final.jpg)
-![Plains table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_inventory.jpg)
-
-### Mistlands
-![Mistlands table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_ini.jpg)
-![Mistlands table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_final.jpg)
-![Mistlands table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_inventory.jpg)
-
-### Ashlands
-![Ashlands table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_ini.jpg)
-![Ashlands table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_final.jpg)
-![Ashlands table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_inventory.jpg)
-
 ## How it works
 - Carry a Forsaken's trophy and the new table unlocks in the build menu. The forsaken trophy is not a required ingredient for the table.
 - Place it under a roof and it slowly produces that biome's resources.
@@ -63,5 +27,24 @@ the config file reloads while the game or server runs.
 ## Settings (`BepInEx/config/SirCookie.DeathAndTaxes.cfg`)
 Hours per stack (base/final), progression curve, overclock on/off and multiplier, generated resources per table,
 tables per player, and an optional "no roof" mode.
+
+
+## Screenshots
+
+| Table | Just built | All trophies | Tribute window |
+|---|---|---|---|
+| **Meadows** | [![Meadows, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_ini.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_ini.jpg) | – | [![Meadows, tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_inventory.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_inventory.jpg) |
+
+| **Black Forest** | [![Black Forest, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_ini.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_ini.jpg) | [![Black Forest, all trophies](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_final.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_final.jpg) | [![Black Forest, tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_inventory.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_inventory.jpg) |
+
+| **Swamp** | [![Swamp, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_ini.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_ini.jpg) | [![Swamp, all trophies](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_final.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_final.jpg) | [![Swamp, tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_inventory.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_inventory.jpg) |
+
+| **Mountains** | [![Mountains, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_ini.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_ini.jpg) | [![Mountains, all trophies](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_final.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_final.jpg) | [![Mountains, tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_inventory.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_inventory.jpg) |
+
+| **Plains** | [![Plains, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_ini.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_ini.jpg) | [![Plains, all trophies](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_final.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_final.jpg) | [![Plains, tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_inventory.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_inventory.jpg) |
+
+| **Mistlands** | [![Mistlands, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_ini.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_ini.jpg) | [![Mistlands, all trophies](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_final.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_final.jpg) | [![Mistlands, tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_inventory.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_inventory.jpg) |
+
+| **Ashlands** | [![Ashlands, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_ini.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_ini.jpg) | [![Ashlands, all trophies](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_final.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_final.jpg) | [![Ashlands, tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_inventory.jpg)](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_inventory.jpg) |
 
 Author: SirCookie
