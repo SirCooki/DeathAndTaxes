@@ -20,6 +20,7 @@ Mistlands (The Queen) and Ashlands (Fader). Every table looks unique and will sh
 ### Swamp
 ![Swamp table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_ini.jpg)
 ![Swamp table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_final.jpg)
+![Swamp table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_inventory.jpg)
 
 ### Mountains
 ![Mountains table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_ini.jpg)
@@ -30,6 +31,16 @@ Mistlands (The Queen) and Ashlands (Fader). Every table looks unique and will sh
 ![Plains table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_ini.jpg)
 ![Plains table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_final.jpg)
 ![Plains table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_inventory.jpg)
+
+### Mistlands
+![Mistlands table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_ini.jpg)
+![Mistlands table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_final.jpg)
+![Mistlands table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mistlands_inventory.jpg)
+
+### Ashlands
+![Ashlands table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_ini.jpg)
+![Ashlands table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_final.jpg)
+![Ashlands table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Ashlands_inventory.jpg)
 
 ## How it works
 - Carry a Forsaken's trophy and the new table unlocks in the build menu. The forsaken trophy is not a required ingredient for the table.
