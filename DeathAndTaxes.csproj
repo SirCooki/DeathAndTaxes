@@ -1,0 +1,39 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>DeathAndTaxes</AssemblyName>
+    <Authors>SirCookie</Authors>
+    <Company>SirCookie</Company>
+    <LangVersion>latest</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <!-- Other mods next to Jotunn.dll (e.g. YamlDotNet 16) target a newer .NET Framework; don't let that drop the Jotunn reference -->
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+    <!-- Your Valheim folder: game DLLs are referenced from here and the mod DLL is copied into it -->
+    <ValheimDir Condition="'$(ValheimDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimDir>
+    <Managed>$(ValheimDir)\valheim_Data\Managed</Managed>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.2" PrivateAssets="all" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Publicized so the mod can read the game's private UI fields -->
+    <Reference Include="assembly_valheim" HintPath="$(Managed)\assembly_valheim.dll" Publicize="true" Private="false" />
+    <Reference Include="assembly_utils" HintPath="$(Managed)\assembly_utils.dll" Private="false" />
+    <Reference Include="assembly_guiutils" HintPath="$(Managed)\assembly_guiutils.dll" Private="false" />
+    <Reference Include="UnityEngine.AssetBundleModule" HintPath="$(Managed)\UnityEngine.AssetBundleModule.dll" Private="false" />
+    <Reference Include="UnityEngine" HintPath="$(Managed)\UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(Managed)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.PhysicsModule" HintPath="$(Managed)\UnityEngine.PhysicsModule.dll" Private="false" />
+    <Reference Include="UnityEngine.UI" HintPath="$(Managed)\UnityEngine.UI.dll" Private="false" />
+    <Reference Include="UnityEngine.UIModule" HintPath="$(Managed)\UnityEngine.UIModule.dll" Private="false" />
+    <Reference Include="UnityEngine.TextRenderingModule" HintPath="$(Managed)\UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="Unity.TextMeshPro" HintPath="$(Managed)\Unity.TextMeshPro.dll" Private="false" />
+    <Reference Include="BepInEx" HintPath="$(ValheimDir)\BepInEx\core\BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(ValheimDir)\BepInEx\core\0Harmony.dll" Private="false" />
+    <Reference Include="Jotunn" HintPath="$(ValheimDir)\BepInEx\plugins\Jotunn.dll" Private="false" />
+  </ItemGroup>
+  <Target Name="CopyToPlugins" AfterTargets="Build" Condition="Exists('$(ValheimDir)\BepInEx\plugins')">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ValheimDir)\BepInEx\plugins\DeathAndTaxes" />
+  </Target>
+</Project>

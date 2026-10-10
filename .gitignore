@@ -1,0 +1,16 @@
+# Build output
+bin/
+obj/
+.vs/
+*.user
+
+# Private: server deploy script, backups (server DLLs, configs, BepInEx zips) and work notes with server details
+deploy.ps1
+backups/
+
+# Built DLL copied into the Thunderstore package
+package/plugins/
+
+# Claude work notes and settings: never published (any folder, any case)
+[Cc][Ll][Aa][Uu][Dd]*.md
+.claude/
