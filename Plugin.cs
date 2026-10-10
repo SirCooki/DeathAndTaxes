@@ -25,6 +25,7 @@ namespace DeathAndTaxes
             PrefabManager.OnVanillaPrefabsAvailable += AddPieces;
             m_harmony = new Harmony(PluginGUID);
             m_harmony.PatchAll();
+            CommandManager.Instance.AddConsoleCommand(new TrophyKitCommand()); // "dt_trophies" test kit (cheat)
             Jotunn.Logger.LogInfo($"{PluginName} {PluginVersion} loaded");
         }
 

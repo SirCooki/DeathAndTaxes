@@ -22,6 +22,8 @@ namespace DeathAndTaxes
         public static ConfigEntry<Progression> ProgressionMode;
         public static ConfigEntry<bool> OverclockEnabled;
         public static ConfigEntry<int> MaxTablesPerPlayer;
+        public static ConfigEntry<bool> OfferFromChests;
+        public static ConfigEntry<float> ChestRange;
         public static ConfigEntry<bool> NoRoofAllowed;
         private static ConfigEntry<float> s_noRoofPenalty;
         private static ConfigEntry<int> s_overclockMultiplier;
@@ -66,6 +68,12 @@ namespace DeathAndTaxes
                 Server("How many tables of each type (Meadows, Black Forest, ...) one player may build. 0 = no limit. " +
                        "Tables that already exist keep working; only building new ones is refused.",
                     new AcceptableValueRange<int>(0, 100)));
+            OfferFromChests = config.Bind(BuildingSection, "Add trophies from nearby chests", true,
+                Server("\"Add trophies\" (and clicking a trophy slot) also takes matching trophies from nearby chests the player may " +
+                       "open, after the player's own inventory. Chests someone has open, tombstones and tribute tables are skipped."));
+            ChestRange = config.Bind(BuildingSection, "Chest range", 20f,
+                Server("How far (metres from the table) chests may be for \"Add trophies from nearby chests\".",
+                    new AcceptableValueRange<float>(1f, 100f)));
 
             MigrateOldSections(config);
 

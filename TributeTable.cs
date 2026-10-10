@@ -449,14 +449,35 @@ namespace DeathAndTaxes
         {
             var unlockedBefore = UnlockedTiers();
             int offered = 0, refused = 0;
-            foreach (var item in user.GetInventory().GetAllItems().ToList())
+            int chestsUsed = 0;
+            // The player's own inventory first, then nearby chests (nearest first)
+            foreach (var inventory in TrophySources(user))
             {
-                if (!IsTrophy(item) || (onlyTrophy != null && PrefabName(item) != onlyTrophy)) continue;
-                int stack = item.m_stack;
-                int take = TakeTrophies(user.GetInventory(), item, stack);
-                offered += take;
-                refused += stack - take;
+                var container = inventory.Key;
+                bool claimed = false;
+                foreach (var item in inventory.Value.GetAllItems().ToList())
+                {
+                    if (!IsTrophy(item) || (onlyTrophy != null && PrefabName(item) != onlyTrophy)) continue;
+                    int stack = item.m_stack;
+                    if (MaxTrophies(PrefabName(item)) - GetTrophyCount(PrefabName(item)) <= 0)
+                    {
+                        if (!container) refused += stack; // full: only the player's own count as "too many"
+                        continue;
+                    }
+                    if (container && !claimed)
+                    {
+                        // Like opening the chest: take ownership so the change is saved properly
+                        container.m_nview.ClaimOwnership();
+                        claimed = true;
+                        chestsUsed++;
+                    }
+                    int take = TakeTrophies(inventory.Value, item, stack);
+                    offered += take;
+                    if (!container) refused += stack - take;
+                }
             }
+            if (chestsUsed > 0)
+                user.Message(MessageHud.MessageType.TopLeft, $"Trophies taken from {chestsUsed} nearby {(chestsUsed == 1 ? "chest" : "chests")}");
             if (offered == 0 && refused == 0)
             {
                 string what = onlyTrophy != null ? DisplayName(onlyTrophy) : "trophies";
@@ -464,6 +485,25 @@ namespace DeathAndTaxes
                 return;
             }
             ShowOfferResult(user, offered, refused, unlockedBefore);
+        }
+
+        /// Inventories to offer from: the player's own (key null), then, if enabled, every nearby chest the player may
+        /// open (nearest first). Skips chests in use (someone has them open), tombstones and tribute tables.
+        private IEnumerable<KeyValuePair<Container, Inventory>> TrophySources(Humanoid user)
+        {
+            yield return new KeyValuePair<Container, Inventory>(null, user.GetInventory());
+            if (!Settings.OfferFromChests.Value || !(user is Player player)) yield break;
+            float range = Settings.ChestRange.Value;
+            var chests = UnityEngine.Object.FindObjectsByType<Container>(FindObjectsSortMode.None)
+                .Where(c => c && c.m_nview && c.m_nview.IsValid() && c.GetInventory() != null
+                            && !c.GetComponent<TributeTable>() && !c.GetComponent<TombStone>() && c.GetComponent<Piece>()
+                            && Vector3.Distance(c.transform.position, transform.position) <= range
+                            && !c.IsInUse() && c.CheckAccess(player.GetPlayerID())
+                            && (!c.m_checkGuardStone || PrivateArea.CheckAccess(c.transform.position, 0f, flash: false)))
+                .OrderBy(c => Vector3.Distance(c.transform.position, transform.position))
+                .ToList();
+            foreach (var chest in chests)
+                yield return new KeyValuePair<Container, Inventory>(chest, chest.GetInventory());
         }
 
         private bool[] UnlockedTiers() => Enumerable.Range(0, Definition.Tiers.Length).Select(IsUnlocked).ToArray();

@@ -6,6 +6,31 @@ Become the feared master of a biome after killing the forsaken. This mod adds a 
 Meadows (Eikthyr), Black Forest (The Elder), Swamp (Bonemass), Mountains (Moder), Plains (Yagluth),
 Mistlands (The Queen) and Ashlands (Fader). Every table looks unique and will show the trophies you collected.
 
+## Screenshots
+
+### Meadows
+![Meadows table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_ini.jpg)
+![Meadows table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Meadows_inventory.jpg)
+
+### Black Forest
+![Black Forest table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_ini.jpg)
+![Black Forest table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_final.jpg)
+![Black Forest table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/BlackForest_inventory.jpg)
+
+### Swamp
+![Swamp table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_ini.jpg)
+![Swamp table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Swamp_final.jpg)
+
+### Mountains
+![Mountains table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_ini.jpg)
+![Mountains table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_final.jpg)
+![Mountains table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Mountains_inventory.jpg)
+
+### Plains
+![Plains table, just built](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_ini.jpg)
+![Plains table, all trophies offered](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_final.jpg)
+![Plains table, the tribute window](https://raw.githubusercontent.com/WouterVermeyen/DeathAndTaxes/main/img/Plains_inventory.jpg)
+
 ## How it works
 - Carry a Forsaken's trophy and the new table unlocks in the build menu. The forsaken trophy is not a required ingredient for the table.
 - Place it under a roof and it slowly produces that biome's resources.

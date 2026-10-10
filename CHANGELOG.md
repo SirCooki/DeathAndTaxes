@@ -6,6 +6,10 @@ tested, Deep North = 1.1. The last number goes up for a chat session that change
 ## 1.0.1 (2026-10-10)
 - Config sections in a clearer order with two-digit numbers: 01 Production, 02 Building, 03 Overclock,
   04 Meadows ... 10 Ashlands. Values from the old section names are carried over automatically.
+- New cheat command `dt_trophies` (devcommands): spawns every table trophy at its table maximum plus 2 of each
+  boss trophy, for testing. Tip: `bind F7 dt_trophies`.
+- "Add trophies" (and clicking a trophy slot) also takes matching trophies from nearby chests you may open, after
+  your own inventory. New settings in 02 - Building: "Add trophies from nearby chests" (on), "Chest range" (20 m).
 
 ## 1.0.0 (2026-10-08) — release, on the server since 2026-10-08; players: BepInEx_update10.zip
 - All tables approved in-game: Meadows, Black Forest, Swamp, Mountains, Plains, Mistlands, Ashlands.
