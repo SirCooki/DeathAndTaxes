@@ -15,7 +15,7 @@ namespace DeathAndTaxes
     {
         public const string PluginGUID = "SirCookie.DeathAndTaxes";
         public const string PluginName = "Death & Taxes";
-        public const string PluginVersion = "1.0.1"; // minor = biomes (Ashlands 1.0, Deep North 1.1), patch = chat session
+        public const string PluginVersion = "1.0.3"; // minor = biomes (Ashlands 1.0, Deep North 1.1), patch = chat session
 
         private void Awake()
         {

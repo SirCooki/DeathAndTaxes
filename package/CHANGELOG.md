@@ -3,8 +3,12 @@
 Versions: the middle number goes up with each new biome; all biomes up to Ashlands = 0.9.0 (testing), 1.0.0 once
 tested, Deep North = 1.1. The last number goes up for a chat session that changes the mod.
 
+## 1.0.3 (2026-10-11)
+- README: screenshot grid fixed (it broke after the first row).
+- The mod now reports 1.0.3 everywhere (in game, on the server and in the package); no gameplay changes since 1.0.1.
+
 ## 1.0.2 (2026-10-11) — package only
-- New package icon (the Black Forest table with all trophies). The mod itself is unchanged (still 1.0.1 in game).
+- New package icon (the Black Forest table with all trophies). The mod itself was unchanged (1.0.1 in game).
 
 ## 1.0.1 (2026-10-10)
 - Config sections in a clearer order with two-digit numbers: 01 Production, 02 Building, 03 Overclock,
