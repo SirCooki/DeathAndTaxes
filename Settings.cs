@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,6 +24,9 @@ namespace DeathAndTaxes
         public static ConfigEntry<int> MaxTablesPerPlayer;
         public static ConfigEntry<bool> OfferFromChests;
         public static ConfigEntry<float> ChestRange;
+        public static ConfigEntry<bool> BlockAutoTake;
+        public static ConfigEntry<float> StandRange;
+        public static ConfigEntry<bool> ShowTrophyWall;
         public static ConfigEntry<bool> NoRoofAllowed;
         private static ConfigEntry<float> s_noRoofPenalty;
         private static ConfigEntry<int> s_overclockMultiplier;
@@ -74,6 +77,19 @@ namespace DeathAndTaxes
             ChestRange = config.Bind(BuildingSection, "Chest range", 20f,
                 Server("How far (metres from the table) chests may be for \"Add trophies from nearby chests\".",
                     new AcceptableValueRange<float>(1f, 100f)));
+            ShowTrophyWall = config.Bind(BuildingSection, "Show trophy wall", true,
+                Server("Show the wall with the offered trophies behind each table. Off: only the table itself, for bases that " +
+                       "show their trophies on item stands around it instead (see Nearby trophy range)."));
+            StandRange = config.Bind(BuildingSection, "Nearby trophy range", 5f,
+                Server("Trophies within this many metres of a table count towards it while they are there (within the " +
+                       "per-trophy cap): on item stands and lying on the ground, not in chests. A trophy used by several " +
+                       "tables counts for the earliest biome's table. A counted item stand that is broken or removed loses " +
+                       "its trophy (no drop). 0 = off.",
+                    new AcceptableValueRange<float>(0f, 50f)));
+            BlockAutoTake = config.Bind(BuildingSection, "Block automatic taking", false,
+                Server("Stop mods that refuel or feed from nearby chests from taking tribute out of the tables: OttoFuel " +
+                       "(smelters, kilns, fires, torches, ovens, ballistas) and ServersideQoL AutoProcess/TameAssist. " +
+                       "Players can always take. ServersideQoL picks up a change after a server restart."));
 
             MigrateOldSections(config);
 

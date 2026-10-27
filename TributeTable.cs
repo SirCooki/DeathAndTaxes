@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -37,6 +37,7 @@ namespace DeathAndTaxes
         private const string KeyChestButlerManualOnly = "psort_manual";
 
         private static readonly HashSet<TributeTable> s_instances = new HashSet<TributeTable>();
+        public static IEnumerable<TributeTable> Instances => s_instances;
         private static readonly Dictionary<Inventory, TributeTable> s_byInventory = new Dictionary<Inventory, TributeTable>();
         private static bool s_producing;
 
@@ -44,6 +45,9 @@ namespace DeathAndTaxes
         private Container m_container;
         private Inventory m_inventory;
         private bool m_enforcing;
+        private string m_standSignature;
+        private GameObject m_rangeMarker;
+        private CircleProjector m_rangeCircle;
         private readonly Dictionary<string, GameObject> m_wallTrophies = new Dictionary<string, GameObject>();
 
         private Vector3 FrontOfTable => transform.position - transform.forward + Vector3.up;
@@ -54,7 +58,12 @@ namespace DeathAndTaxes
             m_container = GetComponent<Container>();
             FindWallTrophies();
             UpdateWallTrophies(); // also on the build ghost: only the build-cost trophies are shown
-            if (!m_nview || !m_nview.IsValid()) return;
+            CreateRangeMarker();
+            if (!m_nview || !m_nview.IsValid())
+            {
+                if (m_rangeMarker) m_rangeMarker.SetActive(TrophyStands.Range > 0f); // build ghost: always show the range
+                return;
+            }
             s_instances.Add(this);
             InvokeRepeating(nameof(Tick), 2f, TickSeconds);
             InvokeRepeating(nameof(UpdateWallTrophies), VisualSeconds, VisualSeconds);
@@ -76,6 +85,7 @@ namespace DeathAndTaxes
         private void OnDestroy()
         {
             s_instances.Remove(this);
+            TrophyStands.Forget(this);
             if (m_inventory == null) return;
             s_byInventory.Remove(m_inventory);
             m_inventory.m_onChanged -= OnStorageChanged;
@@ -240,8 +250,17 @@ namespace DeathAndTaxes
 
         // ---- trophies and tiers ----
 
-        /// Trophies of one type on the table. Unset means the start count: 1 for the build-cost (common) trophies.
+        /// Trophies of one type that count for the table: offered ones plus those on nearby item stands
+        /// (TrophyStands), within the cap.
         public int GetTrophyCount(string trophy)
+        {
+            int offered = OfferedCount(trophy);
+            int onStands = Definition != null && m_nview && m_nview.IsValid() ? TrophyStands.Count(this, trophy) : 0;
+            return onStands > 0 ? Mathf.Min(offered + onStands, MaxTrophies(trophy)) : offered;
+        }
+
+        /// Trophies of one type offered to the table. Unset means the start count: 1 for the build-cost (common) trophies.
+        public int OfferedCount(string trophy)
         {
             int tier = Definition?.TierOfTrophy(trophy) ?? -1;
             int start = tier >= 0 ? Definition.Tiers[tier].StartCount : 0;
@@ -281,13 +300,72 @@ namespace DeathAndTaxes
         }
 
         /// Every client: a trophy (and its plaque) only shows on the wall once at least one is on the table.
+        /// "Show trophy wall" off hides the wall and its trophies (the table itself stays).
         private void UpdateWallTrophies()
         {
+            bool wall = Settings.ShowTrophyWall.Value;
             foreach (var pair in m_wallTrophies)
             {
-                bool show = GetTrophyCount(pair.Key) > 0;
+                bool show = wall && GetTrophyCount(pair.Key) > 0;
                 if (pair.Value && pair.Value.activeSelf != show) pair.Value.SetActive(show);
             }
+            var decor = transform.Find(TributeModel.DecorName);
+            if (!decor) return;
+            foreach (var part in new[] { TributeModel.WallName, TributeModel.WallColliderName })
+            {
+                var t = decor.Find(part);
+                if (t && t.gameObject.activeSelf != wall) t.gameObject.SetActive(wall);
+            }
+        }
+
+        // ---- item stand range marker (like a workbench's build range) ----
+
+        /// A copy of the workbench's ground circle, sized to "Nearby trophy range". Hidden until shown.
+        private void CreateRangeMarker()
+        {
+            var bench = ZNetScene.instance ? ZNetScene.instance.GetPrefab("piece_workbench") : null;
+            var source = bench ? bench.GetComponent<CraftingStation>()?.m_areaMarker : null;
+            if (!source) return;
+            m_rangeMarker = Instantiate(source, transform);
+            m_rangeMarker.name = "lob_range";
+            m_rangeMarker.transform.localPosition = Vector3.zero;
+            m_rangeCircle = m_rangeMarker.GetComponent<CircleProjector>();
+            if (m_rangeCircle) m_rangeCircle.m_radius = Mathf.Max(0.1f, TrophyStands.Range);
+            m_rangeMarker.SetActive(false);
+        }
+
+        /// Shows the range circle for a moment (called every frame while it should stay visible).
+        public void ShowRange()
+        {
+            if (!m_rangeMarker || TrophyStands.Range <= 0f) return;
+            if (m_rangeCircle) m_rangeCircle.m_radius = TrophyStands.Range;
+            m_rangeMarker.SetActive(true);
+            CancelInvoke(nameof(HideRange));
+            Invoke(nameof(HideRange), 0.5f);
+        }
+
+        private static int s_surfaceMask;
+
+        /// The workbench circle sits on the terrain; inside a house that is under the floor. Put each segment on the
+        /// first surface below table height instead (floors, build pieces or terrain), not on the roof above.
+        private void LateUpdate()
+        {
+            if (!m_rangeMarker || !m_rangeMarker.activeSelf || !m_rangeCircle || m_rangeCircle.m_segments == null) return;
+            if (s_surfaceMask == 0)
+                s_surfaceMask = LayerMask.GetMask("Default", "static_solid", "Default_small", "piece", "terrain", "vehicle");
+            float top = transform.position.y + 1.5f;
+            foreach (var segment in m_rangeCircle.m_segments)
+            {
+                if (!segment) continue;
+                var p = segment.transform.position;
+                if (Physics.Raycast(new Vector3(p.x, top, p.z), Vector3.down, out var hit, 6f, s_surfaceMask, QueryTriggerInteraction.Ignore))
+                    segment.transform.position = hit.point + Vector3.up * 0.05f;
+            }
+        }
+
+        private void HideRange()
+        {
+            if (m_rangeMarker) m_rangeMarker.SetActive(false);
         }
 
         // ---- production ----
@@ -299,6 +377,11 @@ namespace DeathAndTaxes
             if (!m_nview.IsValid() || !m_nview.IsOwner() || Definition == null) return;
             EnsureModFlags();
             Enforce();
+
+            // Trophies hung on or taken off nearby stands: credit the time so far at the old speed
+            string stands = TrophyStands.Signature(this);
+            if (m_standSignature != null && stands != m_standSignature) BankProduction();
+            m_standSignature = stands;
 
             var zdo = m_nview.GetZDO();
             long now = ZNet.instance.GetTime().Ticks;
@@ -422,12 +505,12 @@ namespace DeathAndTaxes
         private int TakeTrophies(Inventory from, ItemDrop.ItemData item, int amount)
         {
             string prefab = PrefabName(item);
-            int count = GetTrophyCount(prefab);
-            int take = Mathf.Min(amount, item.m_stack, MaxTrophies(prefab) - count);
+            int take = Mathf.Min(amount, item.m_stack, MaxTrophies(prefab) - GetTrophyCount(prefab));
             if (take <= 0) return 0;
             m_nview.ClaimOwnership();
             BankProduction(); // the time so far still counts at the old speed and unlocks
-            Write(z => z.Set(TrophyKey(prefab), count + take));
+            int offered = OfferedCount(prefab);
+            Write(z => z.Set(TrophyKey(prefab), offered + take));
             from.RemoveItem(item, take);
             UpdateWallTrophies();
             return take;

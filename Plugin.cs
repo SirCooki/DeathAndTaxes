@@ -1,4 +1,4 @@
-using BepInEx;
+﻿using BepInEx;
 using HarmonyLib;
 using Jotunn.Configs;
 using Jotunn.Entities;
@@ -15,7 +15,7 @@ namespace DeathAndTaxes
     {
         public const string PluginGUID = "SirCookie.DeathAndTaxes";
         public const string PluginName = "Death & Taxes";
-        public const string PluginVersion = "1.0.3"; // minor = biomes (Ashlands 1.0, Deep North 1.1), patch = chat session
+        public const string PluginVersion = "1.0.5"; // minor = biomes (Ashlands 1.0, Deep North 1.1), patch = chat session
 
         private void Awake()
         {
@@ -63,9 +63,17 @@ namespace DeathAndTaxes
         }
 
         // After every plugin's Awake: optional patches into other mods
-        private void Start() => Compat.PatchServersideQoL(m_harmony);
+        private void Start()
+        {
+            Compat.PatchServersideQoL(m_harmony);
+            Compat.PatchOttoFuel(m_harmony);
+        }
 
-        private void Update() => Settings.ReloadIfChanged();
+        private void Update()
+        {
+            Settings.ReloadIfChanged();
+            TrophyStands.ShowNearbyRanges();
+        }
 
         private void OnDestroy() => Settings.StopWatching();
 

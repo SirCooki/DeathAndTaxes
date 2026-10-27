@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Jotunn.Managers;
 using UnityEngine;
@@ -21,6 +21,8 @@ namespace DeathAndTaxes
         private static readonly Dictionary<string, float> s_trophyScale = new Dictionary<string, float>();
 
         public const string DecorName = "lob_decor";
+        public const string WallName = "wall";
+        public const string WallColliderName = "wall_collider";
         public const string TrophyPrefix = "trophy_"; // + trophy prefab: shown/hidden per table by TributeTable
 
         private static readonly string[] PieceStateParts = { "worn", "broken" };
@@ -121,14 +123,14 @@ namespace DeathAndTaxes
                 table.min.y - placed.min.y,
                 table.max.z - placed.min.z - WallOverlap);
 
-            var wall = NewChild(decor, "wall", layer);
+            var wall = NewChild(decor, WallName, layer);
             wall.localPosition = pos;
             wall.localRotation = rot;
             wall.localScale = scale;
             CopyRenderers(source.transform, wall, SkippedParts, layer);
 
             // Solid, so it can be hit (hover/interact) and blocks walking through
-            var col = NewChild(decor, "wall_collider", layer).gameObject.AddComponent<BoxCollider>();
+            var col = NewChild(decor, WallColliderName, layer).gameObject.AddComponent<BoxCollider>();
             col.center = placed.center + pos;
             col.size = placed.size;
 

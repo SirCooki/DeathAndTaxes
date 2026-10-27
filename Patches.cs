@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using HarmonyLib;
 using UnityEngine;
 
@@ -78,6 +78,7 @@ namespace DeathAndTaxes
             if (!table) return;
             if (__instance.m_checkGuardStone && !PrivateArea.CheckAccess(__instance.transform.position, 0f, flash: false)) return;
             __result = table.GetHoverText();
+            table.ShowRange();
         }
 
         // Holding E on an open container (and other mods) call StackAll: nothing may be stacked into a tribute table.

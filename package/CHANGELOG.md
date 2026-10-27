@@ -3,6 +3,17 @@
 Versions: the middle number goes up with each new biome; all biomes up to Ashlands = 0.9.0 (testing), 1.0.0 once
 tested, Deep North = 1.1. The last number goes up for a chat session that changes the mod.
 
+## 1.0.5
+- Hanging a trophy on a stand confirms the table it counts towards; no more "Too far" message.
+
+## 1.0.4
+- Trophies within 5 m of a table count towards it while they are there: on item stands and on the ground, not in
+  chests ("Nearby trophy range", 0 = off). Shared trophies count for the earliest biome's table. Breaking a counted
+  stand destroys its trophy. The range shows as a circle on the ground, and hanging a trophy tells you if it counts.
+- New setting "Show trophy wall" (default on): off shows only the table, without the trophy wall.
+- New setting "Block automatic taking" (default off): stops OttoFuel and ServersideQoL AutoProcess/TameAssist from
+  taking tribute out of the tables. Players can always take.
+
 ## 1.0.3 (2026-10-11)
 - README: screenshot grid fixed (it broke after the first row).
 - The mod now reports 1.0.3 everywhere (in game, on the server and in the package); no gameplay changes since 1.0.1.

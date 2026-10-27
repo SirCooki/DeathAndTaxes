@@ -11,6 +11,9 @@ Mistlands (The Queen) and Ashlands (Fader). Every table looks unique and will sh
 - Place it under a roof and it slowly produces that biome's resources.
 - Offer creature trophies at the table. Trophies come in four rarities: common (up to 10 per type), uncommon (5),
   rare (3) and unique (1). More trophies make production faster: from 10 in-game hours per stack down to 1 in-game hour.
+- Trophies within 5 m of the table count too, while they are there: on item stands or on the ground (not in
+  chests). Breaking such a stand destroys the trophy. A trophy used by several tables counts for the earliest
+  biome's table. The range shows as a circle on the ground, like a workbench.
 - Kill the boss again and spend its trophy with the "Remind them!" button to double production for an in-game hour
   (multiplier configurable).
 - Configure to restrict items or change the generation speed.
@@ -18,7 +21,8 @@ Mistlands (The Queen) and Ashlands (Fader). Every table looks unique and will sh
 ## Important
 - The table only holds what it produced. It can't be used as storage.
 - One table of each type per player on a server (configurable).
-- Mods that interact with inventory can't generally take out resources automatically.
+- Refuel/feed mods (e.g. OttoFuel) can take resources from a table near a smelter, fire or torch; turn on
+  "Block automatic taking" to stop that.
 
 ## Multiplayer
 Install on the server **and** every player (same version). Settings are server-side and synced to all players;
@@ -26,7 +30,8 @@ the config file reloads while the game or server runs.
 
 ## Settings (`BepInEx/config/SirCookie.DeathAndTaxes.cfg`)
 Hours per stack (base/final), progression curve, overclock on/off and multiplier, generated resources per table,
-tables per player, and an optional "no roof" mode.
+tables per player, nearby trophy range, trophy wall on/off, an optional "no roof" mode, and blocking refuel/feed mods (OttoFuel, ServersideQoL)
+from taking tribute (off by default).
 
 
 ## Screenshots

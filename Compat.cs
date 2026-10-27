@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using BepInEx.Bootstrap;
 using HarmonyLib;
 using UnityEngine;
@@ -16,19 +17,54 @@ namespace DeathAndTaxes
         /// Name of ChestButler's button bar, placed next to the vanilla "Take all" button.
         public const string ChestButlerBarName = "psort_bar";
 
+        // ---- OttoFuel (every client) ----
+
+        public const string OttoFuelGuid = "potto007.OttoFuel";
+
+        /// OttoFuel feeds smelters, kilns, fires, torches, ovens and ballistas from every container in range, tribute
+        /// tables included. With "Block automatic taking" on, tribute tables are left out of its nearby-container list.
+        public static void PatchOttoFuel(Harmony harmony)
+        {
+            if (!Chainloader.PluginInfos.ContainsKey(OttoFuelGuid)) return;
+            try
+            {
+                var utils = AccessTools.TypeByName("OttoFuel.TastyUtils");
+                var nearby = utils != null ? AccessTools.Method(utils, "GetNearbyContainers") : null;
+                if (nearby == null || nearby.ReturnType != typeof(List<Container>))
+                {
+                    Jotunn.Logger.LogWarning("[DeathAndTaxes] OttoFuel found but not the expected code; \"Block automatic taking\" won't affect it");
+                    return;
+                }
+                harmony.Patch(nearby, postfix: new HarmonyMethod(typeof(Compat), nameof(NoOttoFuelFromTables)));
+                Jotunn.Logger.LogInfo("[DeathAndTaxes] OttoFuel: tribute tables skipped while \"Block automatic taking\" is on");
+            }
+            catch (Exception e)
+            {
+                Jotunn.Logger.LogWarning($"[DeathAndTaxes] Couldn't adjust OttoFuel: {e.Message}");
+            }
+        }
+
+        private static void NoOttoFuelFromTables(List<Container> __result)
+        {
+            if (__result == null || !Settings.BlockAutoTake.Value) return;
+            __result.RemoveAll(c => c && TributeDefinitions.ForPiece(c.gameObject.name) != null);
+        }
+
         // ---- ServersideQoL (server only) ----
 
+        public const string ServersideQoLGuid = "ArgusMagnus.ServersideQoL";
         public const string ServersideQoLAutoStoreGuid = "ArgusMagnus.ServersideQoL.AutoStore";
 
         /// ServersideQoL edits container contents in the save data on the server, past Inventory.AddItem.
         /// Its AutoStore would put dropped/stacked items into tribute tables (the table pushes them out again: a loop)
         /// and re-sort them (fighting the fixed resource slots). Tribute tables get pickup range 0, AutoStore's own
         /// "never store into this chest" (what its chest sign "🧲0" does), and AutoStore's sorting is not attached to
-        /// them. Everything else stays: e.g. AutoProcess may still feed smelters from a table (taking out is fine).
+        /// them. Taking out stays allowed (AutoProcess feeding smelters, TameAssist feeding tames) unless
+        /// "Block automatic taking" is on: then their feed ranges for tribute tables are 0 as well.
         /// Called from Plugin.Start, after every plugin has loaded; ServersideQoL looks objects up lazily later.
         public static void PatchServersideQoL(Harmony harmony)
         {
-            if (!Chainloader.PluginInfos.ContainsKey(ServersideQoLAutoStoreGuid)) return;
+            if (!Chainloader.PluginInfos.ContainsKey(ServersideQoLGuid)) return;
             try
             {
                 var registry = AccessTools.TypeByName("ServersideQoL.Processors.ContainerRegistryProcessor");
@@ -51,11 +87,22 @@ namespace DeathAndTaxes
         }
 
         /// A tribute table's container state gets pickup range 0: AutoStore never puts dropped or stacked items in it.
+        /// With "Block automatic taking" on, AutoProcess and TameAssist get feed range 0 too (their sign "↔️0"/"🐗0").
+        /// ServersideQoL keeps this state per container, so a changed setting applies after a server restart.
         private static void NoAutoStoreIntoTables(Container container, object __result)
         {
             if (__result == null || !container || TributeDefinitions.ForPiece(container.gameObject.name) == null) return;
-            var range = AccessTools.Property(__result.GetType(), "AutoStorePickupRange");
-            if (range != null && !Equals(range.GetValue(__result), 0f)) range.SetValue(__result, (float?)0f);
+            SetRangeZero(__result, "AutoStorePickupRange");
+            if (!Settings.BlockAutoTake.Value) return;
+            SetRangeZero(__result, "AutoProcessFeedRange");
+            SetRangeZero(__result, "TameAssistFeedRange");
+        }
+
+        private static void SetRangeZero(object state, string name)
+        {
+            var range = AccessTools.Property(state.GetType(), name);
+            if (range == null || !range.CanWrite || Equals(range.GetValue(state), 0f)) return;
+            range.SetValue(state, range.PropertyType == typeof(float) ? (object)0f : (float?)0f);
         }
 
         /// AutoStore's container processor (auto sort) is never attached to tribute tables.

@@ -3,6 +3,26 @@
 Versions: the middle number goes up with each new biome; all biomes up to Ashlands = 0.9.0 (testing), 1.0.0 once
 tested, Deep North = 1.1. The last number goes up for a chat session that changes the mod.
 
+## 1.0.5 (2026-10-27)
+- Hanging a trophy on a stand only confirms when it counts ("Greydwarf trophy counts towards Tribute - Black Forest
+  (3/10)"); the "Too far" message is gone. The stand's hover line reads "Counts towards <table>".
+- Nearby trophies (1.0.4) tested in-game by the user: all checks passed.
+
+## 1.0.4 (2026-10-20) — on the server since 2026-10-20; players: BepInEx_update20.zip
+- Trophies near a table count towards it while they are there: on item stands (vanilla or other mods') and lying on
+  the ground, not in chests (new setting "Nearby trophy range", 02 - Building, default 5 m, 0 = off; within the
+  per-trophy cap). A trophy used by several tables counts for the earliest biome's table only. A counted item stand
+  that is broken or removed loses its trophy (no drop); taking the trophy off by hand is fine, it just stops counting.
+- The range shows as a circle on the ground, like a workbench's: while looking at a table, while placing a table or
+  an item stand, and while looking at an item stand nearby.
+- Hanging a trophy on a stand says whether it counts ("Greydwarf trophy counts for Tribute - Black Forest (3/10)") or
+  is too far away; a stand's hover text shows which table it counts for.
+- New setting "Show trophy wall" (02 - Building, default on): off shows only the table, without the wall and its
+  trophies, for bases that show their trophies around the table instead.
+- New setting "Block automatic taking" (02 - Building, default off): stops OttoFuel (smelters, kilns, fires,
+  torches, ovens, ballistas) and ServersideQoL AutoProcess/TameAssist from taking tribute out of the tables.
+  Players can always take. ServersideQoL picks up a change after a server restart.
+
 ## 1.0.3 (2026-10-11) — on the server since 2026-10-11; players: BepInEx_update12.zip
 - README: screenshot grid fixed (it broke after the first row).
 - The mod now reports 1.0.3 everywhere (in game, on the server and in the package); no gameplay changes since 1.0.1.
