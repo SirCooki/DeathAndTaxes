@@ -3,12 +3,12 @@
 Versions: the middle number goes up with each new biome; all biomes up to Ashlands = 0.9.0 (testing), 1.0.0 once
 tested, Deep North = 1.1. The last number goes up for a chat session that changes the mod.
 
-## 1.0.5 (2026-10-27)
+## 1.0.5 (2026-10-27) — on the server since 2026-10-27; players: BepInEx_update23.zip
 - Hanging a trophy on a stand only confirms when it counts ("Greydwarf trophy counts towards Tribute - Black Forest
   (3/10)"); the "Too far" message is gone. The stand's hover line reads "Counts towards <table>".
 - Nearby trophies (1.0.4) tested in-game by the user: all checks passed.
 
-## 1.0.4 (2026-10-20) — on the server since 2026-10-20; players: BepInEx_update20.zip
+## 1.0.4 (2026-10-20) — on the server 2026-10-20 to 2026-10-27; players: BepInEx_update20.zip to update22.zip
 - Trophies near a table count towards it while they are there: on item stands (vanilla or other mods') and lying on
   the ground, not in chests (new setting "Nearby trophy range", 02 - Building, default 5 m, 0 = off; within the
   per-trophy cap). A trophy used by several tables counts for the earliest biome's table only. A counted item stand
