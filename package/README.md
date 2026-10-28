@@ -9,7 +9,7 @@ Mistlands (The Queen) and Ashlands (Fader). Every table looks unique and will sh
 ## How it works
 - Carry a Forsaken's trophy and the new table unlocks in the build menu. The forsaken trophy is not a required ingredient for the table.
 - Place it under a roof and it slowly produces that biome's resources.
-- Offer creature trophies at the table. Trophies come in four rarities: common (up to 10 per type), uncommon (5),
+- Offer creature trophies at the table, from your inventory and from chests within 20 m. Trophies come in four rarities: common (up to 10 per type), uncommon (5),
   rare (3) and unique (1). More trophies make production faster: from 10 in-game hours per stack down to 1 in-game hour.
 - Trophies within 5 m of the table count too, while they are there: on item stands or on the ground (not in
   chests). Breaking such a stand destroys the trophy. A trophy used by several tables counts for the earliest
@@ -30,7 +30,7 @@ the config file reloads while the game or server runs.
 
 ## Settings (`BepInEx/config/SirCookie.DeathAndTaxes.cfg`)
 Hours per stack (base/final), progression curve, overclock on/off and multiplier, generated resources per table,
-tables per player, nearby trophy range, trophy wall on/off, an optional "no roof" mode, and blocking refuel/feed mods (OttoFuel, ServersideQoL)
+tables per player, adding trophies from nearby chests (and their range), nearby trophy range, trophy wall on/off, an optional "no roof" mode, and blocking refuel/feed mods (OttoFuel, ServersideQoL)
 from taking tribute (off by default).
 
 

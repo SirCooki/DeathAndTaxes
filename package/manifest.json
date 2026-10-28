@@ -4,7 +4,7 @@
   "website_url": "https://github.com/SirCooki/DeathAndTaxes",
   "description": "Defeat a biome's boss and collect tribute from the frightened inhabitants. The more you kill, the more they will bring you. Decorate your base with their trophies.",
   "dependencies": [
-    "denikson-BepInExPack_Valheim-5.4.2351",
+    "denikson-BepInExPack_Valheim-5.4.2360",
     "ValheimModding-Jotunn-2.30.2"
   ]
 }
